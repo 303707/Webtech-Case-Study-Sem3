@@ -71,7 +71,7 @@ $bst->appendChild($Käufer_Email);
 $Com=$xml->createElement("Bemerkungen", "$comment");
 $bst->appendChild($Com);
 
-$xml->save("BST_ProdID-$prodID-AngeID-$offID.xml")or die("error, nicht möglich das xml File zu erzeugen!");
+$xml->save("xml\BST_ProdID-$prodID-AngeID-$offID.xml")or die("error, nicht möglich das xml File zu erzeugen!");
 }
 
 ?>
