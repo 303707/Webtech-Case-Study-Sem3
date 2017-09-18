@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Bestellungen>
+  <Bestellung>
+    <Angebot_ID>18</Angebot_ID>
+    <Produkt_ID>42</Produkt_ID>
+    <Produkt_Bezeichnung>AAXX</Produkt_Bezeichnung>
+    <Produkt_Menge>5000</Produkt_Menge>
+    <Preis>10000</Preis>
+    <Anbieter_Email>sandro.schmid@hotmail.com</Anbieter_Email>
+    <Besteller_Email>sandro.schmid@hotmail.com</Besteller_Email>
+    <Bemerkungen>blabla</Bemerkungen>
+  </Bestellung>
+</Bestellungen>
