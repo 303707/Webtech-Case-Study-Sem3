@@ -8,7 +8,7 @@ require 'classes/DB.php';
 
 $database = new DB;
 
-//Alle Artikel Anzeigen
+//Nur Datensätze von currentUser
 $currentUser = $_SESSION['user_data']['email'];
 
 $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -21,54 +21,32 @@ $rowsoff = $database->resultset();
 
 
 // Prüft, ob ein POST gemacht wurde
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_POST['deletereq'])) {
 
-//Suchfunktion
-    if (isset($_POST['search'])) {
+//Löscht den gewählten Datensatz!
 
-        if ($_POST['search'] != '') {
-            $search = $post['search'];
-            $database->query("SELECT * FROM product WHERE prodDesc LIKE '%{$search}%' OR prodCat LIKE '%{$search}%'");
-            $database->execute();
-            $rows = $database->resultset();
-        } else {
-            echo '<div class="alert alert-danger">Bitte geben Sie einen Suchbegriff ein!</div>';
-        }
+    if ($_POST['deletereq'] = 'Löschen') {
+        $prodID = $_POST['prodID'];
+        $database->query('DELETE FROM product WHERE prodID = "' . $prodID . '"');
+        $database->execute();
+        echo "Artikel und alle dazugehörigen Angebote wurden gelöscht!";
     }
-
-
-    //Angebotsdaten an die Datenbank senden.
-
-    if (isset($_POST['prodID'])){
-
-        if ($_POST['prodID'] != ''){
-            $prodID = $_POST['prodID'];
-            $offEmail = $post['offerEmail'];
-            $offPrice = $post['offerPrice'];
-
-            $database->query('INSERT INTO offer (prodID, offEmail, offPrice) VALUES(:prodID, :offEmail, :offPrice)');
-
-            $database->bind(':prodID', $prodID);
-            $database->bind(':offEmail', $offEmail);
-            $database->bind(':offPrice', $offPrice);
-
-            $database->execute();
-
-            if ($database->lastInsertId()) {
-                echo '<p>Angebot Erfasst!</p>';
-            }
-
-        } else {
-            echo 'Angebot konnte nicht gespeichert werden';
-        }
-    }
-
 }
+if (isset($_POST['deleteoff'])) {
+    if ($_POST['deleteoff'] = 'Löschen2') {
+        $offID = $_POST['offID'];
+        $database->query('DELETE FROM offer WHERE offID = "' . $offID . '"');
+        $database->execute();
+        echo "Das Angebot wurde gelöscht";
+    }
+}
+
+
 ?>
 
 <div class="row">
 <div class="col-md-12">
-    <div class="panel panel-warning">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Meine nachgefragten Artikel</h3>
         </div>
@@ -92,6 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <td><?php echo $row['prodAmount']; ?></td>
                             <td><?php echo $row['prodDelDate']; ?></td>
                             <td><?php echo $row['prodQual']; ?></td>
+                           <td><form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
+                                   <input class="btn btn-primary text-center" type="hidden" name="prodID" value="<?php echo $row['prodID']; ?>">
+                                   <input class="btn btn-success text-center" type="submit" name="deletereq" value="Löschen" />
+                            </form>
+                           </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
@@ -102,9 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 </div>
 
+
 <div class="row">
 <div class="col-md-12">
-    <div class="panel panel-success">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Meine Angebote</h3>
         </div>
@@ -132,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input class="btn btn-primary text-center" type="hidden" name="prodAmount" value="<?php echo $row['prodAmount']; ?>">
                                 <input class="btn btn-primary text-center" type="hidden" name="offPrice" value="<?php echo $row['offPrice']; ?>">
                                 <input class="btn btn-primary text-center" type="hidden" name="offEmail" value="<?php echo $row['offEmail']; ?>">
-                                <input class="btn btn-success text-center" type="submit" name="offer" value="Bestellung erfassen" />
+                                <input class="btn btn-success text-center" type="submit" name="deleteoff" value="Löschen2" />
                             </form>
                     </tr>
                 <?php endforeach; ?>
