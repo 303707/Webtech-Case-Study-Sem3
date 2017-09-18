@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Bestellungen>
+  <Bestellung>
+    <Angebot_ID>6</Angebot_ID>
+    <Produkt_ID>2</Produkt_ID>
+    <Produkt_Bezeichnung>Schrauben 6x30 Flachkopf</Produkt_Bezeichnung>
+    <Produkt_Menge>0</Produkt_Menge>
+    <Preis>5000</Preis>
+    <Anbieter_Email>sandro.schmid@hotmail.com</Anbieter_Email>
+    <Besteller_Email>sandro.schmid@hotmail.com</Besteller_Email>
+    <Bemerkungen>aaaaaaaaaaa</Bemerkungen>
+  </Bestellung>
+</Bestellungen>
