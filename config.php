@@ -7,5 +7,5 @@ define("DB_PASS", "1234");
 define("DB_NAME", "b2b");
 
 // Define URL
-define("ROOT_PATH", "/b2b/");
-define("ROOT_URL", "http://localhost/b2b/");
+define("ROOT_PATH", "/Webtech-Case-Study-Sem3/");
+define("ROOT_URL", "http://localhost/Webtech-Case-Study-Sem3/");
