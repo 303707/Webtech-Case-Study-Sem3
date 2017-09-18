@@ -71,7 +71,7 @@ $bst->appendChild($Käufer_Email);
 $Com=$xml->createElement("Bemerkungen", "$comment");
 $bst->appendChild($Com);
 
-$xml->save("xml\BST_ProdID-$prodID-AngeID-$offID.xml")or die("error, nicht möglich das xml File zu erzeugen!");
+    $xml->save("xml\BST_ProdID-$prodID-AngeID-$offID.xml")or die("error, nicht möglich das xml File zu erzeugen!");
 }
 
 ?>
@@ -146,19 +146,19 @@ $xml->save("xml\BST_ProdID-$prodID-AngeID-$offID.xml")or die("error, nicht mögl
                         <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
                             <div class="form-group">
                                 <label for="formGroupExampleInput">Produktbeschreibung:</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput" name="prodDesc" value="<?php if(isset($_POST['offID'])) {echo $_POST['prodDesc'];} ?>"readonly="readonly"><br />
+                                <input type="text" class="form-control" id="formGroupExampleInput" name="prodDesc" value="<?php if(isset($_POST['offID'])) {echo $_POST['prodDesc'];} ?>" readonly="readonly"><br />
                                 <label for="formGroupExampleInput">Angebot ID:</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput" name="offID" value="<?php if(isset($_POST['offID'])) {echo $_POST['offID'];} ?>"readonly="readonly"><br />
+                                <input type="text" class="form-control" id="formGroupExampleInput" name="offID" value="<?php if(isset($_POST['offID'])) {echo $_POST['offID'];} ?>" readonly="readonly"><br />
                                 <label for="formGroupExampleInput">Produkt ID:</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput" name="prodID" value="<?php if(isset($_POST['offID'])) {echo $_POST['prodID'];} ?>"readonly="readonly"><br />
+                                <input type="text" class="form-control" id="formGroupExampleInput" name="prodID" value="<?php if(isset($_POST['offID'])) {echo $_POST['prodID'];} ?>" readonly="readonly"><br />
                                 <label for="formGroupExampleInput">Menge:</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput" name="prodAmount" value="<?php if(isset($_POST['offID'])) {echo $_POST['prodAmount'];} ?>"readonly="readonly"><br />
+                                <input type="text" class="form-control" id="formGroupExampleInput" name="prodAmount" value="<?php if(isset($_POST['offID'])) {echo $_POST['prodAmount'];} ?>" readonly="readonly"><br />
                                 <label for="formGroupExampleInput">Preis:</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput" name="offPrice" value="<?php if(isset($_POST['offID'])) {echo $_POST['offPrice'];} ?>"readonly="readonly"><br />
+                                <input type="text" class="form-control" id="formGroupExampleInput" name="offPrice" value="<?php if(isset($_POST['offID'])) {echo $_POST['offPrice'];} ?>" readonly="readonly"><br />
                                 <label for="formGroupExampleInput">Email:</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput" name="orderEmail" value="<?php if(isset($_POST['offID'])) {echo $_SESSION['user_data']['email'];} ?>"readonly="readonly"><br />
+                                <input type="text" class="form-control" id="formGroupExampleInput" name="orderEmail" value="<?php if(isset($_POST['offID'])) {echo $_SESSION['user_data']['email'];} ?>" readonly="readonly"><br />
                                 <label for="formGroupExampleInput">Bemerkungen zur Bestellung:</label>
-                                <textarea type="text" class="form-control" id="formGroupExampleInput" name="comment"  placeholder="..." ></textarea><br />
+                                <textarea class="form-control" id="formGroupExampleInput" name="comment"  placeholder="..." ></textarea><br />
                                 <input class="btn btn-primary text-center" type="hidden" name="offEmail" value="<?php if(isset($_POST['offID'])) {echo $_POST['offEmail'];} ?>">
                                 <input class="btn btn-success text-center" type="submit" name="submitAngebot" value="Bestellung abschicken!" />
                             </div>
