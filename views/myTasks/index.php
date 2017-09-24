@@ -20,24 +20,23 @@ $database->query('SELECT product.prodID, product.prodDesc, product.prodCat, prod
 $rowsoff = $database->resultset();
 
 
-// Prüft, ob ein POST gemacht wurde
-if (isset($_POST['deletereq'])) {
-
 //Löscht den gewählten Datensatz!
 
+if (isset($_POST['deletereq'])) {
+    echo '<div class="alert alert-success">Artikel und alle zugerhörigen Angebote wurden gelöscht!</div>';
     if ($_POST['deletereq'] = 'Löschen') {
         $prodID = $_POST['prodID'];
         $database->query('DELETE FROM product WHERE prodID = "' . $prodID . '"');
         $database->execute();
-        echo "Artikel und alle dazugehörigen Angebote wurden gelöscht!";
     }
 }
+
 if (isset($_POST['deleteoff'])) {
-    if ($_POST['deleteoff'] = 'Löschen2') {
+    echo '<div class="alert alert-success">Das Angebot wurde gelöscht!</div>';
+    if ($_POST['deleteoff'] = 'Löschen') {
         $offID = $_POST['offID'];
         $database->query('DELETE FROM offer WHERE offID = "' . $offID . '"');
         $database->execute();
-        echo "Das Angebot wurde gelöscht";
     }
 }
 
@@ -70,7 +69,8 @@ if (isset($_POST['deleteoff'])) {
                             <td><?php echo $row['prodAmount']; ?></td>
                             <td><?php echo $row['prodDelDate']; ?></td>
                             <td><?php echo $row['prodQual']; ?></td>
-                           <td><form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
+                           <td>
+                               <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
                                    <input class="btn btn-primary text-center" type="hidden" name="prodID" value="<?php echo $row['prodID']; ?>">
                                    <input class="btn btn-success text-center" type="submit" name="deletereq" value="Löschen" />
                             </form>
@@ -116,7 +116,7 @@ if (isset($_POST['deleteoff'])) {
                                 <input class="btn btn-primary text-center" type="hidden" name="prodAmount" value="<?php echo $row['prodAmount']; ?>">
                                 <input class="btn btn-primary text-center" type="hidden" name="offPrice" value="<?php echo $row['offPrice']; ?>">
                                 <input class="btn btn-primary text-center" type="hidden" name="offEmail" value="<?php echo $row['offEmail']; ?>">
-                                <input class="btn btn-success text-center" type="submit" name="deleteoff" value="Löschen2" />
+                                <input class="btn btn-success text-center" type="submit" name="deleteoff" value="Löschen" />
                             </form>
                     </tr>
                 <?php endforeach; ?>

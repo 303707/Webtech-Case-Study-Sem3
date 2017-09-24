@@ -6,6 +6,10 @@
 <?php
 require 'classes/DB.php';
 
+if (isset($_POST['submitAngebot'])) {
+    echo '<div class="alert alert-success">Dein Angebot wurde erfasst!</div>';
+}
+
 $database = new DB;
 
 //Alle Artikel Anzeigen
