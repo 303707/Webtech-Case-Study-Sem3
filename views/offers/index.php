@@ -6,8 +6,20 @@
 <?php
 require 'classes/DB.php';
 
+$ok = false;
 if (isset($_POST['submitAngebot'])) {
-    echo '<div class="alert alert-success">Dein Angebot wurde erfasst!</div>';
+    $ok = true;
+
+    if (!isset($_POST["offerPrice"]) ||
+        !preg_match('/^[0-9]*$/', $_POST["offerPrice"]) ||
+        $_POST["offerPrice"] == "" ){
+        $ok = false;
+        echo '<div class="alert alert-danger">Bitte geben Sie den Preis an!</div>';
+    }
+
+    if ($ok) {
+        echo '<div class="alert alert-success">Ihr Angebot wurde erfasst!</div>';
+    }
 }
 
 $database = new DB;
@@ -39,31 +51,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     //Angebotsdaten an die Datenbank senden.
+    if ($ok) {
+        if (isset($_POST['prodID'])) {
 
-    if (isset($_POST['prodID'])){
+            if ($_POST['prodID'] != '') {
+                $prodID = $_POST['prodID'];
+                $offEmail = $post['offerEmail'];
+                $offPrice = $post['offerPrice'];
 
-        if ($_POST['prodID'] != ''){
-            $prodID = $_POST['prodID'];
-            $offEmail = $post['offerEmail'];
-            $offPrice = $post['offerPrice'];
+                $database->query('INSERT INTO offer (prodID, offEmail, offPrice) VALUES(:prodID, :offEmail, :offPrice)');
 
-            $database->query('INSERT INTO offer (prodID, offEmail, offPrice) VALUES(:prodID, :offEmail, :offPrice)');
+                $database->bind(':prodID', $prodID);
+                $database->bind(':offEmail', $offEmail);
+                $database->bind(':offPrice', $offPrice);
 
-            $database->bind(':prodID', $prodID);
-            $database->bind(':offEmail', $offEmail);
-            $database->bind(':offPrice', $offPrice);
+                $database->execute();
 
-            $database->execute();
+                if ($database->lastInsertId()) {
+                    echo '<p>Angebot Erfasst!</p>';
+                }
 
-            if ($database->lastInsertId()) {
-                echo '<p>Angebot Erfasst!</p>';
+            } else {
+                echo 'Angebot konnte nicht gespeichert werden';
             }
-
-        } else {
-            echo 'Angebot konnte nicht gespeichert werden';
         }
     }
-
 }
 ?>
 
@@ -89,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h3 class="panel-title">Übersicht aller nachgefragten Artikel</h3>
@@ -130,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
 <!-- Angebotsdaten Aufnehmen-->
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h3 class="panel-title">Angebot erfassen zu Nachfrage Nr. <?php if(isset($_POST['row_id'])) {echo $_POST['row_id'];} ?></h3>

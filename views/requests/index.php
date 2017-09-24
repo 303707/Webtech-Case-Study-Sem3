@@ -32,8 +32,22 @@ if (isset($_POST['submit'])) {
         echo '<div class="alert alert-danger">Bitte geben Sie die gewünschte Menge an!</div>';
     }
 
+    if (!isset($_POST["prodDelDate"]) ||
+        !preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $_POST["prodDelDate"]) ||
+        $_POST["prodDelDate"] == "" ){
+        $ok = false;
+        echo '<div class="alert alert-danger">Bitte geben Sie das gewünschte Lieferdatum an!</div>';
+    }
+
+    if (!isset($_POST["prodQual"]) ||
+        !is_string($_POST["prodQual"]) ||
+        trim($_POST["prodQual"]) == "0" ){
+        $ok = false;
+        echo '<div class="alert alert-danger">Bitte wählen Sie die Qualität aus!</div>';
+    }
+
     if ($ok) {
-        echo '<div class="alert alert-success">Deine Nachfrage wurde erfasst!</div>';
+        echo '<div class="alert alert-success">Ihre Nachfrage wurde erfasst!</div>';
     }
 }
 
@@ -109,7 +123,7 @@ $rows = $database->resultset();
 
                                         <label for="formGroupExampleInput" > Qualität</label ><br />
                                         <select class="form-control" id = "inlineFormCustomSelect" name = "prodQual" >
-                                            <option selected > Bitte Qualität auswählen(Q1 = höchste Qualität)</option >
+                                            <option value = "0" selected > Bitte Qualität auswählen(Q1 = höchste Qualität)</option >
                                             <option value = "Q1" > Q1</option >
                                             <option value = "Q2" > Q2</option >
                                             <option value = "Q3" > Q3</option >
